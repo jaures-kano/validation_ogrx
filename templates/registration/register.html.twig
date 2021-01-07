@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel utilisateur{% endblock %}
+
+{% block body %}
+
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <h1>Nouvel utilisateur</h1>
+
+
+
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(registrationForm) }}
+            <div class="row">
+                    {{ form_row(registrationForm.email) }}
+            </div>
+                <div class="row">
+                    {{ form_row(registrationForm.plainPassword) }}
+                </div>
+            <div class="row">
+                {{ form_row(registrationForm.name) }}
+            </div>
+            <div class="row">
+                {{ form_row(registrationForm.firstname) }}
+            </div>
+
+            <div class="row" style="padding-top: 10px">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </div>
+
+            {{ form_end(registrationForm) }}
+            <div class="row" style="padding-top: 10px">
+                <a href="{{ path('choices.redirect.admin') }}" class="btn btn-primary">Administration</a>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

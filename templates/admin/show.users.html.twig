@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OGRX{% endblock %}
+
+{% block body %}
+
+
+    <div class="container mt-4"><h2>Utilisateurs</h2></div>
+
+    <div class="div container">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Nom</td>
+                    <td>Prénom</td>
+                    <td>Email</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.name  }}</td>
+                    <td>{{ user.firstname  }}</td>
+                    <td>{{ user.email  }}&nbsp; &nbsp;</td>
+                    <td><a href="{{ path('show.users.one',{id : user.id} ) }}" ><img src="{{ asset('img/voir.png') }}" class="img-responsive" alt="Responsive image"></a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

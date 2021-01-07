@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OGRX{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container mt-4"><h2>Administration</h2></div>
+    <div class="container">
+        <a href="{{ path('app_register' ) }}" class="btn btn-primary btn-lg btn-block">Ajouter un utilisateur</a>
+        <a href="{{ path('show.users.all' ) }}" class="btn btn-primary btn-lg btn-block">Voir les utilisateurs</a>
+
+    </div>
+{% endblock %}

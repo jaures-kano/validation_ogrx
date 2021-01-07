@@ -1,0 +1,28 @@
+doctrine:
+    dbal:
+        driver: pdo_pgsql
+        server_version: 11
+        host: '%env(database_host)%'
+        port: '%env(database_port)%'
+        dbname: '%env(database_name)%'
+        user: '%env(database_user)%'
+        password: '%env(database_password)%'
+        charset: UTF8
+        #url: '%env(DATABASE_URL)%'
+        #types:
+            #geometry: Jsor\Doctrine\PostGIS\Types\GeometryType
+
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '5.7'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
