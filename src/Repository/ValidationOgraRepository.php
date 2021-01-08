@@ -47,4 +47,17 @@ class ValidationOgraRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function lockLignes($dep, $iIdUser) {
+
+        $entityManager = $this->getEntityManager();
+
+        $RAW_QUERY = "UPDATE public.validation_ogra SET iduser=:iduser  WHERE dep2=:dep AND ss_agent IS NOT TRUE";
+        $statement = $entityManager->getConnection()->prepare($RAW_QUERY);
+
+        $statement->bindParam(':iduser', $iIdUser);
+        $statement->bindParam(':dep', $dep);
+        $statement->execute();
+    }
+
 }

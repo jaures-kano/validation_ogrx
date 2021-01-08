@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +48,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstname;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DepLockA::class, mappedBy="iduser")
+     */
+    private $depLockAs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ReseauLockA::class, mappedBy="iduser")
+     */
+    private $reseauLockAs;
+
+    public function __construct()
+    {
+        $this->depLockAs = new ArrayCollection();
+        $this->reseauLockAs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +165,66 @@ class User implements UserInterface
     public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DepLockA[]
+     */
+    public function getDepLockAs(): Collection
+    {
+        return $this->depLockAs;
+    }
+
+    public function addDepLockA(DepLockA $depLockA): self
+    {
+        if (!$this->depLockAs->contains($depLockA)) {
+            $this->depLockAs[] = $depLockA;
+            $depLockA->setIduser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepLockA(DepLockA $depLockA): self
+    {
+        if ($this->depLockAs->removeElement($depLockA)) {
+            // set the owning side to null (unless already changed)
+            if ($depLockA->getIduser() === $this) {
+                $depLockA->setIduser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ReseauLockA[]
+     */
+    public function getReseauLockAs(): Collection
+    {
+        return $this->reseauLockAs;
+    }
+
+    public function addReseauLockA(ReseauLockA $reseauLockA): self
+    {
+        if (!$this->reseauLockAs->contains($reseauLockA)) {
+            $this->reseauLockAs[] = $reseauLockA;
+            $reseauLockA->setIduser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReseauLockA(ReseauLockA $reseauLockA): self
+    {
+        if ($this->reseauLockAs->removeElement($reseauLockA)) {
+            // set the owning side to null (unless already changed)
+            if ($reseauLockA->getIduser() === $this) {
+                $reseauLockA->setIduser(null);
+            }
+        }
 
         return $this;
     }

@@ -8,6 +8,7 @@ doctrine:
         user: '%env(database_user)%'
         password: '%env(database_password)%'
         charset: UTF8
+        schema_filter: ~(dep)~
         #url: '%env(DATABASE_URL)%'
         #types:
             #geometry: Jsor\Doctrine\PostGIS\Types\GeometryType

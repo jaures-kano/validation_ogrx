@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OGRX{% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container mt-4"><h2>Choix de l'application</h2></div>
+    <div class="container">
+        <a href="{{ path('choices.redirect.admin',{id : 'OGRB'} ) }}" class="btn btn-primary btn-lg btn-block">Validation OGRB</a>
+        <a href="{{ path('choices.redirect.admin',{id : 'OGRA'} ) }}" class="btn btn-success btn-lg btn-block">Validation OGRA</a>
+        <a href="{{ path('choices.redirect.admin',{id : 'GAB'} ) }}" class="btn btn-info btn-lg btn-block">Validation GAB</a>
+    </div>
+{% endblock %}
