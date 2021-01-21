@@ -15,7 +15,9 @@
         </div>
     {% endfor %}
 
-
+<div class="container-fluid">
+    <a href="{{ path('choices.admin.redirect.target') }}" class="btn btn-primary">Administration</a>
+</div>
     <h1>Nouvel utilisateur</h1>
 
 
@@ -41,9 +43,7 @@
             </div>
 
             {{ form_end(registrationForm) }}
-            <div class="row" style="padding-top: 10px">
-                <a href="{{ path('choices.redirect.admin') }}" class="btn btn-primary">Administration</a>
-            </div>
+
         </div>
 
 

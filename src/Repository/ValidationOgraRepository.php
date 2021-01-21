@@ -60,4 +60,45 @@ class ValidationOgraRepository extends ServiceEntityRepository
         $statement->execute();
     }
 
+
+    public function getHistoTraitementDep($dep)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $RAW_QUERY = "SELECT v.id as vid ,* FROM public.validation_ogra v , public.user u
+        WHERE (traite = TRUE OR rappel IS TRUE )
+        AND ss_agent IS NOT TRUE
+        AND u.id = v.iduser
+        AND dep2=:dep         
+        ORDER BY vid";
+
+        $statement = $entityManager->getConnection()->prepare($RAW_QUERY);
+
+        $statement->bindParam(':dep', $dep);
+        $statement->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
+
+
+    public function getHistoTraitementRes($dep)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $RAW_QUERY = "SELECT v.id as vid ,* FROM public.validation_ogra v , public.user u
+        WHERE (traite = TRUE OR rappel IS TRUE)
+        AND ss_agent IS TRUE
+        AND u.id = v.iduser
+        AND res1=:dep          
+        ORDER BY vid  ";
+
+        $statement = $entityManager->getConnection()->prepare($RAW_QUERY);
+
+        $statement->bindParam(':dep', $dep);
+        $statement->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
 }

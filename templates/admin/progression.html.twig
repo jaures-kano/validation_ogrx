@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OGRX{% endblock %}
+
+
+{% block body %}
+
+
+
+    <div class="container-fluid">
+        <a href="{{ path('choices.admin.redirect.target') }}" class="btn btn-primary">Administration</a>
+    </div>
+    <div class="container mt-4"><h2>Progression</h2></div>
+    <div class="div container">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Département</td>
+                <td>Traités</td>
+                <td>Non traités</td>
+                <td>Rappels</td>
+                <td>Agent</td>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for dep in deps %}
+                <tr>
+                    <td>{{ dep.dep  }}</td>
+                    <td>{{ dep.traites  }}</td>
+                    <td>{{ dep.nontraite  }}&nbsp; &nbsp;</td>
+                    <td>{{ dep.rappel   }}</td>
+                    <td>{{ dep.name   }} {{ dep.firstname   }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <div class="div container">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Réseau</td>
+                <td>Traités</td>
+                <td>Non traités</td>
+                <td>Rappels</td>
+                <td>Agent</td>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for reseau in reseaux %}
+                <tr>
+                    <td>{{ reseau.res1  }}</td>
+                    <td>{{ reseau.traites  }}</td>
+                    <td>{{ reseau.atraiter  }}&nbsp; &nbsp;</td>
+                    <td>{{ reseau.rappel   }}</td>
+                    <td>{{ reseau.name   }} {{ reseau.firstname   }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

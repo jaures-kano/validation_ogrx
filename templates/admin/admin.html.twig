@@ -5,11 +5,20 @@
 
 {% block body %}
 
-
     <div class="container mt-4"><h2>Administration</h2></div>
+
     <div class="container">
         <a href="{{ path('app_register' ) }}" class="btn btn-primary btn-lg btn-block">Ajouter un utilisateur</a>
         <a href="{{ path('show.users.all' ) }}" class="btn btn-primary btn-lg btn-block">Voir les utilisateurs</a>
+        <a href="{{ path('admin.progression' ) }}" class="btn btn-primary btn-lg btn-block">Progression</a>
+
+        {% if app.session.get('choice') == 'OGRA'  %}
+        <a href="{{ path('admin.histo.dep',{type : 'dep'}  ) }}" class="btn btn-primary btn-lg btn-block">Historique traitement départements</a>
+        <a href="{{ path('admin.histo.dep',{type : 'reseau'}  ) }}" class="btn btn-primary btn-lg btn-block">Historique traitement réseaux</a>
+        {% endif %}
+
+
 
     </div>
+
 {% endblock %}

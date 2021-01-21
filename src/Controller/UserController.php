@@ -5,9 +5,9 @@ namespace App\Controller;
 
 
 use App\Repository\DepLockARepository;
-use App\Repository\DepRepository;
+use App\Repository\DepRepositoryA;
 use App\Repository\UserRepository;
-use App\Service\DepService;
+use App\Service\DepServiceA;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,12 +48,12 @@ class UserController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstract
      * @param int $id
      * @Route("/users/one/{id}", name="show.users.one")
      */
-    public function showOne(int $id, UserRepository $userRepository, DepService $depService, DepRepository $depRepository)
+    public function showOne(int $id, UserRepository $userRepository, DepServiceA $depService, DepRepositoryA $depRepository)
     {
         $user = $userRepository->getOneUsers($id);
         $depToAttribute = $depService->getDepToAttribute();
         $userDeps = $depRepository->getDepAAttributeToUser($id);
-dump($userDeps);
+        //dump($userDeps);
         return $this->render('admin/show.user.one.html.twig', [
             'user' => $user,
             'depToAttribute' => $depToAttribute,

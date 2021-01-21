@@ -1,7 +1,11 @@
 
 
+$(document).ready(function () {
+    $('#listeTrait').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+});
 
-
+// attribuer départements
 $('#validAttrDep').click(function () {
 
     var idAgent = $('#idAgent').val();
@@ -31,5 +35,44 @@ $('#validAttrDep').click(function () {
     }
 });
 
+//enlever département
+function deleteDep(dep)
+{
+
+    $.ajax({
+        method: "POST",
+        url: window.cheminURLAjaxSuppDep,
+        data: {
+            'dep': dep,
+        },
+        success: function(data){
+
+            document.location.reload();
+        }
+    });
+}
+
+
+$('#validShowDep').on('click', function() {
+    var dep = $("#selectDep option:selected").val();
+
+    if (!dep) {
+        alert('Veuillez selectionner un déparement');
+    } else {
+        document.location = window.cheminURLAjaxShowDepHistoTraiment+'?dep='+dep;
+    }
+});
+
+
+
+$('#validShowRes').on('click', function() {
+    var res = $("#selectRes option:selected").val();
+
+    if (!res) {
+        alert('Veuillez selectionner un déparement');
+    } else {
+        document.location = window.cheminURLAjaxShowDepHistoTraiment+'?res='+res;
+    }
+});
 
 
