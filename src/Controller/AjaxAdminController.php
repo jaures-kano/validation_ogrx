@@ -73,7 +73,7 @@ class AjaxAdminController extends AbstractController
             ]);
 
             $newUser = new User();
-            $depLoc[0]->setIduser($newUser);
+            $depLoc[0]->setUser($newUser);
             $this->ograRepository->lockLignes($dep, null);
 
             return  $this->json('OK', Response::HTTP_OK, [], []);
@@ -87,8 +87,6 @@ class AjaxAdminController extends AbstractController
     public function showHistoDepTrait(Request $request)
     {
         $session = $request->getSession();
-
-
 
         if ($session->get('choice') == 'OGRA') {
 
@@ -113,7 +111,6 @@ class AjaxAdminController extends AbstractController
                 'typechoice' => $type
 
             ]);
-
         }
     }
 }

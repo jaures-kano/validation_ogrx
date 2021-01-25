@@ -181,7 +181,7 @@ class User implements UserInterface
     {
         if (!$this->depLockAs->contains($depLockA)) {
             $this->depLockAs[] = $depLockA;
-            $depLockA->setIduser($this);
+            $depLockA->setUser($this);
         }
 
         return $this;
@@ -191,8 +191,8 @@ class User implements UserInterface
     {
         if ($this->depLockAs->removeElement($depLockA)) {
             // set the owning side to null (unless already changed)
-            if ($depLockA->getIduser() === $this) {
-                $depLockA->setIduser(null);
+            if ($depLockA->getUser() === $this) {
+                $depLockA->setUser(null);
             }
         }
 

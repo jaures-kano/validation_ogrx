@@ -19,34 +19,7 @@ class ValidationOgraRepository extends ServiceEntityRepository
         parent::__construct($registry, ValidationOgra::class);
     }
 
-    // /**
-    //  * @return ValidationOgra[] Returns an array of ValidationOgra objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?ValidationOgra
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     public function lockLignes($dep, $iIdUser) {
 
@@ -100,5 +73,82 @@ class ValidationOgraRepository extends ServiceEntityRepository
 
         return $statement->fetchAllAssociative();
     }
+
+
+
+    public function getListeATraiter($idUser)
+    {
+        $RAW_QUERY = "SELECT * FROM  public.validation_ogra "
+            . "WHERE iduser =:id_user AND traite IS false AND rappel IS NOT TRUE "
+            . "AND coloriedirect IS NOT TRUE AND extrac !=0 ORDER BY id";
+
+        $entityManager = $this->getEntityManager();
+        $statement = $entityManager->getConnection()->prepare($RAW_QUERY);
+
+        $statement->bindParam(':dep', $dep);
+        $statement->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
+    public function getNextLine($idUser)
+    {
+        $query = "SELECT * FROM  public.validation_ogra "
+            . "WHERE iduser =:id_user AND traite IS false AND rappel IS NOT TRUE "
+            . "AND coloriedirect IS NOT TRUE AND extrac !=0 ORDER BY id";
+
+
+        $entityManager = $this->getEntityManager();
+        $statement = $entityManager->getConnection()->prepare($query);
+
+        $statement->bindParam(':id_user', $idUser);
+        $statement->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
+    public function getLinesByCodens(string $codens)
+    {
+        $query = "SELECT * FROM public.validation_ogra 
+        WHERE codens =:codens  order by extrac desc ";
+
+        $entityManager = $this->getEntityManager();
+        $statement = $entityManager->getConnection()->prepare($query);
+
+        $statement->bindParam(':codens', $codens);
+        $statement->execute();
+
+        return $statement->fetchAllAssociative();
+    }
+
+
+    public function lockLignesByCodens(string $codens, int $iIdUser) {
+
+
+        $query = "UPDATE public.validation_ogra SET lock=:lock, iduser=:iduser WHERE codens=:codens";
+
+        $entityManager = $this->getEntityManager();
+        $statement = $entityManager->getConnection()->prepare($query);
+        $statement->bindValue(':lock', 'TRUE');
+        $statement->bindParam(':iduser',$iIdUser );
+        $statement->bindParam(':codens', $codens);
+        $statement->execute();
+    }
+
+
+    public function lockLignesById(int $idLine, int $iIdUser) {
+
+
+        $query = "UPDATE public.validation_ogra SET lock=:lock, iduser=:iduser WHERE id=:id";
+
+        $entityManager = $this->getEntityManager();
+        $statement = $entityManager->getConnection()->prepare($query);
+        $statement->bindValue(':lock', 'TRUE');
+        $statement->bindParam(':iduser',$iIdUser );
+        $statement->bindParam(':id', $idLine);
+        $statement->execute();
+    }
+
+
 
 }

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block javascripts %}
+  {% if app.session.get('choice') == 'OGRA'  %}
+      <script src="{{ asset('js/traitement_OGRA.js') }}" type="text/javascript"></script>
+  {% endif %}
+{% endblock %}
+
+
+
+{% block title %}OGRX{% endblock %}
+
+
+{% block body %}
+
+    {% set impaire = false %}
+    {% if count % 2 == 1 %}
+        {% set impaire = true %}
+    {% endif %}
+
+    <div class="container mt-4"><h2>Bienvenue {{ app.user.firstname }} {{ app.user.name }}</h2></div>
+    <div class="container-fluid">
+
+        {% for fiche in fiches|slice(0, count) %}
+            {% set float = 'right' %}
+
+            {% if loop.index % 2 == 1 %}
+                {% set float = 'right' %}
+            {% else %}
+                {% set float = 'left' %}
+            {% endif %}
+            <div style="float: {{ float }};width: 50%; height: 700px;border: solid grey;">
+                {{ include('view/fiche.html.twig', {fiche: fiche, choice: choice}) }}
+            </div>
+
+
+        {% endfor %}
+        {% if impaire == true %}
+            <div style="float: right; width: 50%; height: 700px;" >Fiche vide
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

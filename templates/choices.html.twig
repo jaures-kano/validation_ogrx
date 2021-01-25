@@ -8,9 +8,9 @@
 
     <div class="container mt-4"><h2>Choix de l'application</h2></div>
     <div class="container">
-        <a href="{{ path('choices.redirect.target',{id : 'OGRB'} ) }}" class="btn btn-primary btn-lg btn-block">Validation OGRB</a>
-        <a href="{{ path('choices.redirect.target',{id : 'OGRA'} ) }}" class="btn btn-success btn-lg btn-block">Validation OGRA</a>
-        <a href="{{ path('choices.redirect.target',{id : 'GAB'} ) }}" class="btn btn-info btn-lg btn-block">Validation GAB</a>
+        <a href="{{ path('choices.agent.redirect.target',{id : 'OGRB'} ) }}" class="btn btn-primary btn-lg btn-block">Validation OGRB</a>
+        <a href="{{ path('choices.agent.redirect.target',{id : 'OGRA'} ) }}" class="btn btn-success btn-lg btn-block">Validation OGRA</a>
+        <a href="{{ path('choices.agent.redirect.target',{id : 'GAB'} ) }}" class="btn btn-info btn-lg btn-block">Validation GAB</a>
 {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('choices.admin.redirect.target') }}" class="btn btn-info btn-lg btn-block">Administration</a>
 {% endif%}

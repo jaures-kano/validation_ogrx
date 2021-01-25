@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block javascripts %}
+    <script type="text/javascript">
+        window.URLAjaxValidSerach = "{{ path('valider_recherche') }}";
+        window.URLAjaxValidAllComm = "{{ path('valider_all_comments') }}";
+    </script>
+
+{% endblock %}
+
+{% if app.session.get('choice') == 'OGRA' %}
+{#Variables#}
+    {% set adresseMap = fiche.numvoie~'+'~fiche.typevoie| replace({' ': '+'}) ~'+'~fiche.nomvoie | replace({' ': '+'})~'+'~fiche.codpost~'+'~fiche.ville | replace({' ': '+'})  %}
+    {% set adresseGoogle =fiche.enseigne1~'+'~fiche.numvoie~'+'~fiche.typevoie| replace({' ': '+'}) ~'+'~fiche.nomvoie | replace({' ': '+'})~'+'~fiche.codpost~'+'~fiche.ville | replace({' ': '+'})  %}
+    {% set adresseSoc = 'nom='~fiche.nomnorm1~'&dep='~fiche.dep %}
+{% endif %}
+
+
+{% block body %}
+
+    <div class="container" style="width: 200px; float: left">
+        <h6><b>Recherches</b></h6>
+        <div class="row">
+            Identifiant {{ fiche.id }}
+        </div>
+        <div class="row">
+            {{ fiche.pstweb ? 'Présent site web' : 'Pas trouvé site web' }}
+        </div>
+
+        <div class="row">
+            <a  href="https://maps.google.com/maps?z=14&t=m&hl=fr&gl=FRA&mapclient=embed&q={{ adresseMap }}" onclick="validSearch('map', {{ fiche.id }})" target="_blank" id="map_{{ fiche.id }}">Recherche Google Map</a>
+        </div>
+        <div class="row">
+            <a  href="https://www.google.com/search?q={{ adresseGoogle }}" onclick="validSearch('google', {{ fiche.id }})" target="_blank" id="google_{{ fiche.id }}">Recherche Google</a>
+        </div>
+        <div class="row">
+            <a href="https://www.societe.com/cgi-bin/liste?{{ adresseSoc }}" onclick="validSearch('societe', {{ fiche.id }})" target="_blank" id="soc_{{ fiche.id }}">Recherche société.com</a>
+        </div>
+        {% if app.session.get('choice') == 'OGRA' %}
+            {% if fiche.numorias %}
+        <div class="row">
+            <a href="https://www.orias.fr/search?q={{ fiche.numorias }}" onclick="validSearch('orias', {{ fiche.id }})" target="_blank" id="orias_{{ fiche.id }}">Recherche Orias</a>
+        </div>
+            {% endif %}
+        {% endif %}
+        <div class="row">
+            <a href="{{ path('fiche_detail',{id : fiche.id, } ) }}"  target="_blank" id="detail_{{ fiche.id }}">
+                Fiche détail
+            </a>
+        </div>
+    </div>
+
+
+    <div class="container" style="width: 200px; float: right">
+        <h6><b>Commentaires</b></h6>
+        <div class="checkbox" style="padding: 0px;margin: 0px">
+            <label>
+                <input type="checkbox" id="validGoogle" name="validGoogle"> Google
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="validGoogleMap" name="validGoogleMap"> Street View
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="validGoogleMap" name="validGoogleMap"> Street View
+            </label>
+        </div>
+        <div class="row">
+            <input type="date" name="date_sv" id="date_sv">
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="validSoc" name="validSoc"> Société.com
+            </label>
+        </div>
+
+        {% if fiche.pstweb %}
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" id="validSite" name="validSite"> Site
+                </label>
+            </div>
+        {% endif %}
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="validTel" name="validTel"> Téléphone
+            </label>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="validAllCommentaires" name="validAllCommentaires" onclick="validAllCommentaires({{ fiche.id }})" >Valider</button>
+    </div>
+{% endblock %}

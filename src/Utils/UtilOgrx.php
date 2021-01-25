@@ -45,4 +45,23 @@ class UtilOgrx
         return $total / $nbOccurences;
     }
 
+
+    public static function nettoyerChaine($chaine) {
+
+        $chainet=preg_replace("#\n|\t|\r#","",$chaine);
+        return trim($chainet);
+    }
+
+
+    public static function nettoyerChaineTableau($tableau) {
+
+        $tabPropre = array();
+
+        foreach ($tableau as $key => $value) {
+            $tabPropre[$key] = Util::nettoyerChaine($value);
+        }
+
+        return $tabPropre;
+    }
+
 }

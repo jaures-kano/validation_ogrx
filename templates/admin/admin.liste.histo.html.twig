@@ -4,7 +4,7 @@
 
     {% if app.session.get('choice') == 'OGRA'  %}
     <script src="{{ asset('js/admin_OGRA.js') }}" type="text/javascript"></script>
-    {% endif %}$
+    {% endif %}
     {% if app.session.get('choice') == 'OGRB'  %}
         <script src="{{ asset('js/admin_OGRB.js') }}" type="text/javascript"></script>
     {% endif %}
@@ -38,6 +38,7 @@
 
 {% block body %}
     <div class="container-fluid">
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Déconnexion</a>
         <a href="{{ path('admin.histo.dep',{type : typechoice}  ) }}" class="btn btn-primary">Retour</a>
 
 

@@ -23,22 +23,7 @@ class AdminController extends AbstractController
     }
 
 
-    /**
-     * @Route("/choices/property/{id}" , name="choices.redirect.target")
-     * @param $id
-     * @param Request $request
-     * @return Response
-     */
-    public function redirectTarget($id, Request $request)
-    {
-        $session = $request->getSession();
-        $session->start();
-        $session->set('choice', $id);
-        dump($session->get('choice'));
 
-        return new Response('<body></body>');
-
-    }
 
     /**
      * @Route("/choices/admin/target" , name="choices.admin.redirect.target")

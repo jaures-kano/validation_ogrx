@@ -30,7 +30,7 @@ class DepLockA
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="depLockAs")
      */
-    private $iduser;
+    private $user;
 
     public function getId(): ?int
     {
@@ -61,14 +61,14 @@ class DepLockA
         return $this;
     }
 
-    public function getIduser(): ?User
+    public function getUser(): ?User
     {
-        return $this->iduser;
+        return $this->user;
     }
 
-    public function setIduser(?User $iduser): self
+    public function setUser(?User $user): self
     {
-        $this->iduser = $iduser;
+        $this->user = $user;
 
         return $this;
     }
